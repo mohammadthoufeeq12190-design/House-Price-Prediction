@@ -1,0 +1,55 @@
+import pandas as pd
+import numpy as np
+
+# ============================
+# User Inputs
+# ============================
+sqft = float(input("Enter Square Footage: "))
+bedrooms = int(input("Enter Number of Bedrooms: "))
+bathrooms = float(input("Enter Number of Bathrooms: "))
+year_built = int(input("Enter Year Built: "))
+lot_size = float(input("Enter Lot Size: "))
+garage = int(input("Enter Garage Size (0/1/2...): "))
+neigh_quality = int(input("Enter Neighborhood Quality (1–10): "))
+
+# ============================
+# Arrange inputs into DataFrame
+# ============================
+input_df = pd.DataFrame({
+    "Square_Footage": [sqft],
+    "Num_Bedrooms": [bedrooms],
+    "Num_Bathrooms": [bathrooms],
+    "Year_Built": [year_built],
+    "Lot_Size": [lot_size],
+    "Garage_Size": [garage],
+    "Neighborhood_Quality": [neigh_quality]
+})
+
+# ============================
+# Predict House Price
+# ============================
+predicted_price = model.predict(input_df)
+
+# Convert np array → scalar → round
+predicted_value = float(predicted_price.flatten()[0])
+predicted_value = round(predicted_value, 2)
+
+# ============================
+# Build result dictionary (one row output)
+# ============================
+result_dict = {
+    "Square_Footage": sqft,
+    "Num_Bedrooms": bedrooms,
+    "Num_Bathrooms": bathrooms,
+    "Year_Built": year_built,
+    "Lot_Size": lot_size,
+    "Garage_Size": garage,
+    "Neighborhood_Quality": neigh_quality,
+    "Predicted_House_Price": predicted_value
+}
+
+# Convert final result into one-row DataFrame
+final_output_df = pd.DataFrame([result_dict])
+
+print("\n=== Final One-Row House Price Prediction Output ===")
+display(final_output_df)
